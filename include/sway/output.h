@@ -54,6 +54,7 @@ struct sway_output {
 
 	bool enabled;
 	list_t *workspaces;
+	struct wl_list layer_surfaces; // sway_layer_surface.link
 
 	struct sway_output_state current;
 
@@ -62,10 +63,6 @@ struct sway_output {
 	struct wl_listener present;
 	struct wl_listener frame;
 	struct wl_listener request_state;
-
-	struct {
-		struct wl_signal disable;
-	} events;
 
 	struct wlr_color_transform *color_transform;
 

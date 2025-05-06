@@ -10,7 +10,6 @@ struct sway_layer_surface {
 	struct wl_listener map;
 	struct wl_listener unmap;
 	struct wl_listener surface_commit;
-	struct wl_listener output_destroy;
 	struct wl_listener node_destroy;
 	struct wl_listener new_popup;
 
@@ -20,6 +19,8 @@ struct sway_layer_surface {
 	struct sway_popup_desc desc;
 
 	struct sway_output *output;
+	struct wl_list link; // sway_output.layer_surfaces
+
 	struct wlr_scene_layer_surface_v1 *scene;
 	struct wlr_scene_tree *tree;
 	struct wlr_scene_shadow *shadow_node;
@@ -50,5 +51,7 @@ struct wlr_layer_surface_v1 *toplevel_layer_surface_from_surface(
 void arrange_layers(struct sway_output *output);
 
 void layer_apply_criteria(struct sway_layer_surface *surface, struct layer_criteria *criteria);
+
+void destroy_layers(struct sway_output *output);
 
 #endif
